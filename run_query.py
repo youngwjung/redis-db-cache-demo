@@ -46,13 +46,13 @@ def fetch(sql):
         return [True, json.loads(res)]
 
     res = Database.query(sql)
-    Cache.setex(sql, TTL, json.dumps(res))
+    Cache.setex(sql, TTL, json.dumps(res, default=str))
     return [False, res]
 
 
 # Display the result of some queries
 start = time.time()
-result = fetch("SELECT * FROM salaries")
+result = fetch("SELECT * FROM employees")
 end = time.time()
 if result[0]:
     print(result[1])
